@@ -17,23 +17,21 @@ const DetailsPage = () => {
   useEffect(() => {
     const data = localStorage.getItem("allData");
     setData(JSON.parse(data));
-    getcurrent();
+    // getcurrent();
   }, []);
 
   // console.log("data:", data)
 
-  const getcurrent = async () => {
-    const result = await data.find((item) => item.id === id);
-    // console.log(result.id)
-    setCurrentData(result);
+  // const getcurrent = async () => {
+    const result = data.find((item) => item.id === id);
+  //   // console.log(result.id)
+  //   // setCurrentData(result);
     console.log(result);
-  };
+  // };
   
 
   return (
     <Container fluid>
-      {currentData.map((singleData) => {
-        return (
           <Container
             fluid
             style={{ backgroundColor: "#003145", height: "45vh" }}
@@ -133,8 +131,6 @@ const DetailsPage = () => {
               </Row>
             </Container>
           </Container>
-        );
-      })}
     </Container>
   );
 };
