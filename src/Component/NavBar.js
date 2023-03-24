@@ -5,7 +5,7 @@ import logo from '../assets/AI Planet Logo.png'
 
 const NavBar = () => {
   return (
-      <Navbar bg="light">
+      <Navbar bg="light" fixed="top">
         <Container>
           <Navbar.Brand href="/">
             <img

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Hand from "../assets/Hand holding bulb 3D.png";
@@ -12,8 +13,8 @@ import { Link, Outlet } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#003145", height: "45vh" }}>
-        <Container className="d-flex pt-4 gap-5">
+      <Container fluid style={{ backgroundColor: "#003145", height: "45vh" }} >
+        <Container className="d-flex pt-4 gap-5 mt-5">
           <Card
             style={{
               width: "60%",
@@ -50,7 +51,7 @@ const Home = () => {
           </Container>
         </Container>
       </Container>
-      <Container className="d-flex justify-content-between mt-3">
+      <Container className="d-flex justify-content-between mt-3 ">
         <div className="d-flex gap-2">
           <Link  to="/">
             All Submissions

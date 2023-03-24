@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createContext, useState } from "react";
 import AllItem from "./Component/AllItem";
 import FavrouitesItem from "./Component/FavrouitesItem";
+import './App.css'
 
 export const AppContext = createContext();
 
