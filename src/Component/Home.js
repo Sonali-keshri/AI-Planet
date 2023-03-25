@@ -1,19 +1,21 @@
-import React from "react";
-
+import React,{ useContext } from "react";
 import { Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Hand from "../assets/Hand holding bulb 3D.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-// import SingleCard from './SingleCard'
-// import SubmissionForm from "./SubmissionForm";
 import { Link, Outlet } from "react-router-dom";
+import { AppContext } from "../App";
 
 const Home = () => {
+
+  const {setSearchItem}= useContext(AppContext)
+
   return (
     <>
-      <Container fluid style={{ backgroundColor: "#003145", height: "45vh" }} >
+      {/* <Container fluid style={{ backgroundColor: "#003145", height: "45vh" }} > */}
+      <Container fluid style={{ backgroundColor: "#003145"}} className="py-5" >
         <Container className="d-flex pt-4 gap-5 mt-5">
           <Card
             style={{
@@ -67,6 +69,7 @@ const Home = () => {
             <input
               placeholder="Search"
               style={{ border: "none", outline: "none" }}
+              onChange={(e) => setSearchItem(e.target.value)}
             />
           </Container>
           <Form.Select
@@ -79,7 +82,6 @@ const Home = () => {
         </div>
       </Container>
       <Outlet />
-      {/* <Container className="mt-4 d-flex gap-5 flex-wrap" style={{overflowY: "auto", height:"80vh"}}> */}
     </>
   );
 };

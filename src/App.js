@@ -2,33 +2,29 @@ import { Container } from "react-bootstrap";
 import Home from "./Component/Home";
 import NavBar from "./Component/NavBar";
 import SubmissionForm from "./Component/SubmissionForm";
-import EditForm from "./Component/EditForm";
 import DetailsPage from "./Component/DetailsPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 import AllItem from "./Component/AllItem";
 import FavrouitesItem from "./Component/FavrouitesItem";
 import './App.css'
 
 export const AppContext = createContext();
 
+const getLocalStorage = () => {
+  let savedArrOfData = JSON.parse(localStorage.getItem("Complete-data"));
+  if (savedArrOfData) {
+    return savedArrOfData;
+  } else {
+    return [];
+  }
+};
+
 
 function App() {
-  // const [allData, setAlldata] = useState([]);
-  // const [inpValues, setInpValues] = useState({
-  //   title:"",
-  //   summary:"",
-  //   description:"",
-  //   coverImg:"",
-  //   hackthonName:"",
-  //   startDate:"",
-  //   endDate:"",
-  //   github:"",
-  //   otherLink:""
-  // })
   
+  const [arrOfData, setArrOfData] = useState(getLocalStorage());
 
- 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
@@ -39,7 +35,39 @@ function App() {
   const [github, setGithub] = useState("");
   const [otherLink, setOtherLink] = useState("");
 
+  const [edit, setEdit] = useState(false);
+  const [active, setActive] = useState(null);
+
   const [searchItem, setSearchItem] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("Complete-data", JSON.stringify(arrOfData));
+  }, [arrOfData]);
+
+
+  const deleteNote = (id) => {
+   setArrOfData(arrOfData.filter((item) => item.id !== id));
+  }
+
+  
+  const editdata = (id) => {
+    const matchedItem = arrOfData.find((item) => item.id === id);
+    setEdit(true);
+    setActive(id);
+ 
+    setTitle(matchedItem.title);
+    setSummary(matchedItem.summary);
+    setDescription(matchedItem.description);
+    setCoverImg(matchedItem.coverImg);
+    setHackthonName(matchedItem.hackthonName);
+    setStartDate(matchedItem.startDate);
+    setEndDate(matchedItem.endDate);
+    setGithub(matchedItem.github);
+    setOtherLink(matchedItem.otherLink);
+    
+  };
+
+  
   return (
     <Container fluid>
       <Router>
@@ -63,25 +91,28 @@ function App() {
             setGithub,
             otherLink,
             setOtherLink,
+            arrOfData, setArrOfData,
+            edit, setEdit,
+            active, setActive,
             searchItem,
             setSearchItem,
-        
+     
           }}
         >
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />}>
-              <Route index element={<AllItem />} />
+              <Route index element={< AllItem   />}/> 
               <Route path="/favourite" element={<FavrouitesItem />} />
             </Route>
             <Route path="/SubmissionForm" element={<SubmissionForm />} />
-            <Route path="/EditForm" element={<EditForm />} />
-            <Route path="/DetailsPage/:id" element={<DetailsPage />} />
+            <Route path="/DetailsPage/:id" element={<DetailsPage editdata={editdata} deleteNote={deleteNote}/>} />
           </Routes>
         </AppContext.Provider>
       </Router>
     </Container>
   );
 }
+
 
 export default App;
