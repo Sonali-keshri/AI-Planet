@@ -15,15 +15,24 @@ const getLocalStorage = () => {
   let savedArrOfData = JSON.parse(localStorage.getItem("Complete-data"));
   if (savedArrOfData) {
     return savedArrOfData;
+  }else {
+    return [];
+  }
+};
+
+const getFavStorage = () => {
+  let savedFavData = JSON.parse(localStorage.getItem("Fav-data"));
+  if (savedFavData) {
+    return savedFavData;
   } else {
     return [];
   }
 };
 
-
 function App() {
   
   const [arrOfData, setArrOfData] = useState(getLocalStorage());
+  const [favData, setFavData] = useState(getFavStorage());
 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -72,33 +81,10 @@ function App() {
     <Container fluid>
       <Router>
         <AppContext.Provider
-          value={{
-            title,
-            setTitle,
-            summary,
-            setSummary,
-            description,
-            setDescription,
-            coverImg,
-            setCoverImg,
-            hackthonName,
-            setHackthonName,
-            startDate,
-            setStartDate,
-            endDate,
-            setEndDate,
-            github,
-            setGithub,
-            otherLink,
-            setOtherLink,
-            arrOfData, setArrOfData,
-            edit, setEdit,
-            active, setActive,
-            searchItem,
-            setSearchItem,
-     
-          }}
-        >
+          value={{ title, setTitle, summary, setSummary, description, setDescription, coverImg, setCoverImg, hackthonName, setHackthonName, startDate, setStartDate, endDate,
+             setEndDate,github,setGithub,otherLink,setOtherLink,arrOfData, setArrOfData,edit, setEdit,active, setActive,favData, setFavData,searchItem,setSearchItem
+            }}
+            >
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />}>

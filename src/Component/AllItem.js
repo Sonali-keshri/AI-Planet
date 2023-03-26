@@ -1,57 +1,57 @@
-import React from 'react'
-import { Container } from 'react-bootstrap'
-import {  useContext } from "react";
+import React from "react";
+import { Container } from "react-bootstrap";
+import { useContext } from "react";
 import Card from "react-bootstrap/Card";
-import { Link} from 'react-router-dom';
-import { AppContext } from '../App';
-
+import { Link } from "react-router-dom";
+import { AppContext } from "../App";
+import moment from "moment";
 
 const AllItem = () => {
+  const { arrOfData, searchItem } = useContext(AppContext);
 
-    const {arrOfData} = useContext(AppContext)
-  
-    const getTimeDifference = (timestamp) => {
-      const now = Date.now();
-      const difference = now - timestamp;
-      if (difference < 1000) {
-        return 'just now';
-      } else if (difference < 60 * 1000) {
-        return `${Math.floor(difference / 1000)} sec ago`;
-      } else if (difference < 60 * 60 * 1000) {
-        return `${Math.floor(difference / 1000 / 60)} min ago`;
-      } else {
-        return `${Math.floor(difference / 1000 / 60 / 60)} hour ago`;
-      }
-    };
- 
   return (
-    <Container className="mt-4 d-flex gap-5 flex-wrap " style={{height:"70vh"}}>
-      {
-        //  arrOfData.filter((item) =>item.title.toLowerCase().includes(searchItem.toLowerCase())).
-         arrOfData.map((item) =>{
-            return(
-              <Link to={`/DetailsPage/${item.id}`} key={item.id}>
-                {console.log("item id: ", item.id)}
-                <Card style={{ width: "20rem", cursor:"pointer", color:"black" }} className="pt-2 mb-4"  >
-                <Container className="d-flex justify-content-start align-items-center gap-3">
-                  <Card.Img src={item.coverImg} style={{ width: "100px", height: "70px" }} />
-                  <Card.Title>{item.title}</Card.Title>
-                </Container>
-                <Card.Body>
-                  <Card.Text style={{height:"150px", overflow:"hidden"}}>
-                 {item.summary}
-                  </Card.Text>
-                </Card.Body>
-                <Card.Body>
-                    <p style={{textAlign:"right", margin:'0'}}><em> updated {getTimeDifference(item.timestamp)}</em></p>
+    <Container
+      className="mt-4 d-flex flex-wrap gap-5  "
+      style={{ height: "70vh" }}
+    >
+      {arrOfData.length <= 0 ? (
+        <div>
+          <h1>No Data Found</h1>
+        </div>
+      ) : (
+        arrOfData
+          .filter((item) =>
+            item.title.toLowerCase().includes(searchItem.toLowerCase())
+          )
+          .map((item) => {
+            return (
+              <Link
+                to={`/DetailsPage/${item.id}`}
+                key={item.id}
+                className="text-decor"
+              >
+                <Card className="pt-4 mb-4 item-Card shadow">
+                  <Container className="d-flex justify-content-start align-items-center gap-3">
+                    <Card.Img src={item.coverImg} className=" item-Card-Img" />
+                    <Card.Title>{item.title}</Card.Title>
+                  </Container>
+                  <Card.Body>
+                    <Card.Text style={{ height: "150px", overflow: "hidden" }}>
+                      {item.summary}
+                    </Card.Text>
                   </Card.Body>
-              </Card></Link>
-            )
+                  <Card.Body>
+                    <p style={{ textAlign: "right", margin: "0" }}>
+                      <em> updated {moment(item.timestamp).fromNow()}</em>
+                    </p>
+                  </Card.Body>
+                </Card>
+              </Link>
+            );
           })
-        }
-
+      )}
     </Container>
-  )
-}
+  );
+};
 
-export default AllItem
+export default AllItem;

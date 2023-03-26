@@ -6,22 +6,20 @@ import { GoLinkExternal } from "react-icons/go";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../App";
+import moment from "moment";
 
 
-
-const DetailsPage = ({editdata,deleteNote}) => {
-  
-  const {arrOfData} = useContext(AppContext);
+const DetailsPage = ({ editdata, deleteNote }) => {
+  const { arrOfData, setFavData, favData } = useContext(AppContext);
   const [currentData, setCurrentData] = useState(null);
 
   const { id } = useParams();
   const Navigate = useNavigate();
 
-
   useEffect(() => {
     const matchedItem = arrOfData.find((item) => item.id === id);
     setCurrentData(matchedItem);
-  }, [arrOfData,id]);
+  }, [arrOfData, id]);
 
   const OnEditClick = (id) => {
     editdata(id);
@@ -29,100 +27,121 @@ const DetailsPage = ({editdata,deleteNote}) => {
   };
 
   const OnDelete = (deleteItem) => {
-  
-      deleteNote(deleteItem);
-      Navigate("/");
-    
+    deleteNote(deleteItem);
+    Navigate("/");
+  };
+  const isFavourited = favData.includes(id);
+
+  const handleFav = () => {
+    if (!isFavourited) {
+      const newFavItem = [...favData, id];
+      setFavData(newFavItem);
+      localStorage.setItem("Fav-data", JSON.stringify(newFavItem));
+    } else {
+      const newFavItem = favData.filter((savedId) => savedId !== id);
+      setFavData(newFavItem);
+      localStorage.setItem("Fav-data", JSON.stringify(newFavItem));
+    }
   };
 
   return (
-    <Container fluid className="mt-5">
+    <>
       {currentData && (
-        <Container fluid  className="py-4">
-          <Container className="d-flex pt-5 gap-5" style={{ backgroundColor: "#003145" }}>
-            <Card
-              style={{
-                width: "50rem",
-                backgroundColor: "transparent",
-                color: "white",
-                border: "none",
-              }}
-              className="pt-2 mb-3"
-            >
-              <Container className="d-flex justify-content-start align-items-center gap-3">
-                <Card.Img
-                  src={currentData.coverImg}
-                  style={{ width: "80px", height: "70px" }}
-                />
-                <Card.Title>{currentData.title}</Card.Title>
-              </Container>
-              <Card.Body>
-                <Card.Text>{currentData.summary}</Card.Text>
-              </Card.Body>
-              <Card.Body className="d-flex gap-3 ">
-                <div>
-                  <AiFillStar /> <AiOutlineStar />
+        <div>
+          <Container
+            fluid
+            style={{ backgroundColor: "#003145" }}
+            className="mt-5 py-5"
+          >
+            <Container>
+              <div className="row">
+                <div className="col-md-8 order-1">
+                  <Card className="Card-box">
+                    <Card.Body className="card-Body">
+                      <div className="d-flex gap-4 align-items-center">
+                        <Card.Img
+                          src={currentData.coverImg}
+                          style={{width: "150px",height: "100px" }}
+                        />
+                        <Card.Title
+                          className="title fontSize"
+                        >
+                          {currentData.title}
+                        </Card.Title>
+                      </div>
+                      <Card.Text className="mt-3 mb-3">
+                        {currentData.summary}
+                      </Card.Text>
+                      <Card.Body className="d-flex gap-3 ">
+                        <div onClick={handleFav}>
+                          {isFavourited ? <AiFillStar /> : <AiOutlineStar />}
+                        </div>
+                        |
+                        <div>
+                          <MdDateRange />
+                          <small className="px-1">
+                            {moment(currentData.startDate).format("LL")}
+                          </small>
+                        </div>
+                      </Card.Body>
+                    </Card.Body>
+                  </Card>
                 </div>
-                |
-                <div>
-                  <MdDateRange />
-                  <small className="px-3">
-                    {currentData.startDate} {currentData.endDate}
-                  </small>
+                <div className="col-md-4 d-flex flex-md-column justify-content-center align-items-md-center order-2 gap-2 gap-md-0 ">
+                  <Button
+                    variant="outline-light"
+                    className="w-50 "
+                    onClick={() => OnEditClick(currentData.id)}
+                  >
+                    <MdModeEditOutline /> Edit
+                  </Button>
+                  <br />
+                  <Button
+                    variant="outline-light"
+                    className="w-50 "
+                    onClick={() => OnDelete(currentData.id)}
+                  >
+                    <MdDelete /> Delete
+                  </Button>
                 </div>
-              </Card.Body>
-            </Card>
-            <div className="d-flex flex-column">
-              <Button
-                variant="outline-light"
-                className="w-100"
-                onClick={() => OnEditClick(currentData.id)}
-              >
-                <MdModeEditOutline /> Edit
-              </Button>
-              <br />
-              <Button
-                variant="outline-light"
-                className="w-100"
-                onClick={()=> OnDelete(currentData.id)}
-              >
-                <MdDelete /> Delete
-              </Button>
-            </div>
+              </div>
+            </Container>
           </Container>
+          <Container>
 
-          <Container className="mt-5">
-            <Row className=" gap-5">
-              <Col xs={8}>
-                <h2>Description</h2>
-                <p className="text-justify">{currentData.description}</p>
-              </Col>
-              <Col>
-                <p>Hackthon</p>
-                <h4>{currentData.hackthonName}</h4>
+            <Row className="mt-3 ">
+              <Col md={8} className=" py-3">
+                <h3 className="mb-4">Description</h3>
                 <p>
-                  <MdDateRange /> {currentData.startDate} -{" "}
-                  {currentData.endDate}
+                  {currentData.description}                  
+                </p>
+              </Col>
+              <Col md={4} className="py-3">
+                <p className="text-muted">Hackthon</p>
+                <h4>{currentData.hackthonName}</h4>
+                <p className="text-muted mt-3">
+                  <MdDateRange /> {moment(currentData.startDate).format("LL")}{" "}
+                  <span> - </span>
+                  {moment(currentData.endDate).format("LL")}
                 </p>
                 <div className="d-grid gap-3 mt-5">
                   <Link to={currentData.github}>
-                    <Button variant="outline-dark" className="w-50">
-                      <AiFillGithub /> GitHub Repo
+                    <Button variant="outline-dark"   className="links-Btn">
+                      <AiFillGithub className="fontSize"/> GitHub Repository
                     </Button>
                   </Link>
                   <Link to={currentData.otherLink}>
-                    <Button variant="outline-dark" className="w-50">
-                      <GoLinkExternal /> Other Link
+                    <Button variant="outline-dark" className="links-Btn" >
+                      <GoLinkExternal className="fontSize"/> Other Link
                     </Button>
                   </Link>
                 </div>
               </Col>
             </Row>
           </Container>
-        </Container>
+        </div>
       )}
-
-    </Container>
+    </>
   );
 };
 
