@@ -7,33 +7,36 @@ import moment from "moment";
 
 const FavrouitesItem = () => {
 
-  const {favData, arrOfData} = useContext(AppContext)
+  const {favData, arrOfData,searchItem} = useContext(AppContext)
 
   const result = arrOfData.filter(({id}) => favData.includes(id));
 
   return (
-    <Container className="mt-4 d-flex gap-5 flex-wrap">
+    <Container className="mt-4 d-flex flex-wrap gap-md-5 gap-0 justify-content-center justify-content-md-start " style={{ height: "70vh" }}>
       { result.length <= 0 ? (
-        <div>
-          <h1>No Favourite Data Found</h1>
+        <div className="mx-auto my-5">
+           <h3 className="text-center">No Data Avilable! Please add the data by clicking on Upload Submission button</h3>
         </div>
       ) : (
-       result.map((item) =>{
+       result
+       .filter((item) =>
+         item.title.toLowerCase().includes(searchItem.toLowerCase())
+       ).map((item) =>{
         return(
-          <Link to={`/DetailsPage/${item.id}`} key={item.id}>
+          <Link to={`/DetailsPage/${item.id}`} key={item.id} className="text-decor">
             
-            <Card style={{ width: "20rem", cursor:"pointer", color:"black" }} className="pt-2 mb-4"  >
+            <Card className="pt-4 mb-4 item-Card shadow"  >
             <Container className="d-flex justify-content-start align-items-center gap-3">
-              <Card.Img src={item.coverImg} style={{ width: "100px", height: "70px" }} />
+              <Card.Img src={item.coverImg} className="item-Card-Img" />
               <Card.Title>{item.title}</Card.Title>
             </Container>
             <Card.Body>
-              <Card.Text style={{height:"150px", overflow:"hidden"}}>
+              <Card.Text className="item-card-summary">
              {item.summary}
               </Card.Text>
             </Card.Body>
             <Card.Body>
-                <p style={{textAlign:"right", margin:'0'}}><em> updated {moment((item.timestamp)).fromNow()}</em></p>
+                <p className="text-end"><em> updated {moment((item.timestamp)).fromNow()}</em></p>
               </Card.Body>
           </Card></Link>
         )

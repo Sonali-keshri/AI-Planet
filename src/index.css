@@ -22,6 +22,10 @@
   outline: none;
   width: 145px;
 }
+.activeMenu{
+  border-bottom: 3px solid green;
+}
+
 /* AllItems Page */
 .item-Card{
   width: 20rem;
@@ -32,6 +36,13 @@
   width: 100px !important;
   height: 70px;
 }
+.item-card-summary{
+  height: 100px;
+  overflow: hidden;
+}
+/* .item-card-time{
+  text-align: ;
+} */
 
 
 /* Detail Page */
@@ -46,8 +57,9 @@
   width: 200px;
   font-size: 1rem;
 }
-
-.activeMenu{
-  border-bottom: 3px solid green;
+.favIcon{
+  cursor: pointer;
 }
+
+
 

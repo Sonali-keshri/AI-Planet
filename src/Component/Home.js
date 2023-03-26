@@ -22,31 +22,22 @@ const Home = () => {
     if (newSortOrder === "newest") {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, timestamp: new Date(obj.timestamp) };
-        })
-        .sort((a, b) => b.timestamp - a.timestamp);
-      console.log("sorted Dates :  ", sortedDates);
-      setArrOfData(sortedDates);
-      console.log("sorted newest to oldest :  ", arrOfData);
+          return { ...obj, timestamp: new Date(obj.timestamp) }}).sort((a, b) => b.timestamp - a.timestamp);
+        setArrOfData(sortedDates);
     } else {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, timestamp: new Date(obj.timestamp) };
-        })
-        .sort((a, b) => a.timestamp - b.timestamp);
-      console.log("sorted Dates :  ", sortedDates);
+          return { ...obj, timestamp: new Date(obj.timestamp) }}).sort((a, b) => a.timestamp - b.timestamp);
       setArrOfData(sortedDates);
-      console.log("sorted oldest to newest:  ", arrOfData);
     }
   };
-
 
   return (
     <>
       <Container
         fluid
         style={{ backgroundColor: "#003145" }}
-        className="mt-5 py-5"
+        className="mt-5 py-5 px-0"
       >
         <Container>
           <div className="row">
@@ -72,7 +63,7 @@ const Home = () => {
                   </Card.Text>
                   <Link to="/SubmissionForm">
                     <Button className="mt-2" variant="success">
-                      Update Submissions
+                      Upload Submission
                     </Button>
                   </Link>
                 </Card.Body>
@@ -94,12 +85,24 @@ const Home = () => {
       <Container>
         <div className="row mt-3">
           <div className="col-md-7 d-flex gap-4 mb-4 mb-md-0 sumbmission-Link ">
-            <Link to="/" className={`text-decor ${activeLink ? "":"activeMenu"}`} onClick={()=>setActiveLink(!activeLink)} >All Submissions</Link>
-            <Link to="/favourite" onClick={()=>setActiveLink(!activeLink)} className={`text-decor ${activeLink ? "activeMenu":""}`}>Favourite Submissions</Link>
+            <Link
+              to="/"
+              className={`text-decor ${activeLink ? "" : "activeMenu"}`}
+              onClick={() => setActiveLink(!activeLink)}
+            >
+              All Submissions
+            </Link>
+            <Link
+              to="/favourite"
+              onClick={() => setActiveLink(!activeLink)}
+              className={`text-decor ${activeLink ? "activeMenu" : ""}`}
+            >
+              Favourite Submissions
+            </Link>
           </div>
 
-          <div className="col-md-5 row justify-content-between px-4 px-md-0 " >
-            <div className="border border-dark col-8 col-md-7 d-flex align-items-center corner-radius gap-2  " >
+          <div className="col-md-5 row justify-content-between px-4 px-md-0 ">
+            <div className="border border-dark col-8 col-md-7 d-flex align-items-center corner-radius gap-2  ">
               <AiOutlineSearch />
               <input
                 placeholder="Search"

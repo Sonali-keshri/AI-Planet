@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+
 import Home from "./Component/Home";
 import NavBar from "./Component/NavBar";
 import SubmissionForm from "./Component/SubmissionForm";
@@ -78,7 +78,7 @@ function App() {
 
   
   return (
-    <Container fluid>
+   
       <Router>
         <AppContext.Provider
           value={{ title, setTitle, summary, setSummary, description, setDescription, coverImg, setCoverImg, hackthonName, setHackthonName, startDate, setStartDate, endDate,
@@ -96,7 +96,7 @@ function App() {
           </Routes>
         </AppContext.Provider>
       </Router>
-    </Container>
+  
   );
 }
 

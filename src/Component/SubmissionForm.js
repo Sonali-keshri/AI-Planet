@@ -6,7 +6,7 @@ import { AppContext } from "../App";
 import { v4 } from "uuid";
 
 const SubmissionForm = () => {
-  
+
   const { title, setTitle, summary, setSummary, description, setDescription, coverImg, setCoverImg, hackthonName, setHackthonName, startDate, setStartDate, 
     endDate, setEndDate,github,setGithub,otherLink,setOtherLink,active,setActive,edit,setEdit,arrOfData,setArrOfData} = useContext(AppContext);
 
@@ -163,7 +163,7 @@ const SubmissionForm = () => {
               value={otherLink}
             />
           </Form.Group>
-          <Button variant="success" className="mt-5" type="submit">
+          <Button variant="success" className="my-5" type="submit">
             {edit ? "Save" : "Upload"} Submission
           </Button>
         </Form>

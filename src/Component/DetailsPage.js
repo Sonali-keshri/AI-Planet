@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import { Container, Card, Button, Row, Col,Modal } from "react-bootstrap";
 import { AiOutlineStar, AiFillGithub, AiFillStar } from "react-icons/ai";
 import { MdDateRange, MdDelete, MdModeEditOutline } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
@@ -8,10 +8,11 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 import moment from "moment";
 
-
 const DetailsPage = ({ editdata, deleteNote }) => {
   const { arrOfData, setFavData, favData } = useContext(AppContext);
   const [currentData, setCurrentData] = useState(null);
+  const [deleteId, setdeleteId] = useState("");
+  const [show, setShow] = useState(false);
 
   const { id } = useParams();
   const Navigate = useNavigate();
@@ -26,10 +27,24 @@ const DetailsPage = ({ editdata, deleteNote }) => {
     Navigate("/SubmissionForm");
   };
 
-  const OnDelete = (deleteItem) => {
-    deleteNote(deleteItem);
-    Navigate("/");
+  const handleClose =()=>{
+    setShow(false)
+  }
+  const handleDelete = (deleteItemId) => {
+    setShow(true)
+    setdeleteId(deleteItemId)
+    console.log(deleteItemId)
+    // deleteNote(deleteItem);
+    // Navigate("/");
   };
+
+  const handleDeleteItem =(id)=>{
+      deleteNote(id)
+      setShow(false)
+      Navigate("/")
+  }
+
+  
   const isFavourited = favData.includes(id);
 
   const handleFav = () => {
@@ -48,10 +63,11 @@ const DetailsPage = ({ editdata, deleteNote }) => {
     <>
       {currentData && (
         <div>
+          
           <Container
             fluid
             style={{ backgroundColor: "#003145" }}
-            className="mt-5 py-5"
+            className="mt-5 py-5 p-0"
           >
             <Container>
               <div className="row">
@@ -61,11 +77,9 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                       <div className="d-flex gap-4 align-items-center">
                         <Card.Img
                           src={currentData.coverImg}
-                          style={{width: "150px",height: "100px" }}
+                          style={{ width: "150px", height: "100px" }}
                         />
-                        <Card.Title
-                          className="title fontSize"
-                        >
+                        <Card.Title className="title fontSize">
                           {currentData.title}
                         </Card.Title>
                       </div>
@@ -73,7 +87,7 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                         {currentData.summary}
                       </Card.Text>
                       <Card.Body className="d-flex gap-3 ">
-                        <div onClick={handleFav}>
+                        <div onClick={handleFav} className="favIcon">
                           {isFavourited ? <AiFillStar /> : <AiOutlineStar />}
                         </div>
                         |
@@ -99,7 +113,7 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                   <Button
                     variant="outline-light"
                     className="w-50 "
-                    onClick={() => OnDelete(currentData.id)}
+                    onClick={() => handleDelete(currentData.id)}
                   >
                     <MdDelete /> Delete
                   </Button>
@@ -108,13 +122,10 @@ const DetailsPage = ({ editdata, deleteNote }) => {
             </Container>
           </Container>
           <Container>
-
             <Row className="mt-3 ">
               <Col md={8} className=" py-3">
                 <h3 className="mb-4">Description</h3>
-                <p>
-                  {currentData.description}                  
-                </p>
+                <p>{currentData.description}</p>
               </Col>
               <Col md={4} className="py-3">
                 <p className="text-muted">Hackthon</p>
@@ -126,19 +137,35 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                 </p>
                 <div className="d-grid gap-3 mt-5">
                   <Link to={currentData.github}>
-                    <Button variant="outline-dark"   className="links-Btn">
-                      <AiFillGithub className="fontSize"/> GitHub Repository
+                    <Button variant="outline-dark" className="links-Btn">
+                      <AiFillGithub className="fontSize" /> GitHub Repository
                     </Button>
                   </Link>
                   <Link to={currentData.otherLink}>
-                    <Button variant="outline-dark" className="links-Btn" >
-                      <GoLinkExternal className="fontSize"/> Other Link
+                    <Button variant="outline-dark" className="links-Btn">
+                      <GoLinkExternal className="fontSize" /> Other Link
                     </Button>
                   </Link>
                 </div>
               </Col>
             </Row>
           </Container>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Delete</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are You sure you want to delete!..
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={()=>handleDeleteItem(currentData.id)}>
+                Ok
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Cancle
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       )}
     </>
