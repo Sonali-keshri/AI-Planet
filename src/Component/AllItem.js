@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row , Col} from "react-bootstrap";
 import { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
@@ -11,8 +11,7 @@ const AllItem = () => {
 
   return (
     <Container
-      className="mt-4 d-flex flex-wrap gap-md-5 gap-0 justify-content-center justify-content-md-start "
-      style={{ height: "70vh" }}
+      className="mt-4 d-flex flex-wrap gap-md-2 gap-0 justify-content-center justify-content-lg-start gap-lg-5"
     >
       {arrOfData.length <= 0 ? (
         <div className="mx-auto my-5">
@@ -25,15 +24,17 @@ const AllItem = () => {
           )
           .map((item) => {
             return (
-              <Link
+              
+                
+                <Link
                 to={`/DetailsPage/${item.id}`}
                 key={item.id}
                 className="text-decor"
               >
-                <Card className="pt-4 mb-4 item-Card shadow">
+                <Card className="mb-4 item-Card shadow " >
                   <Container className="d-flex justify-content-start align-items-center gap-3">
                     <Card.Img src={item.coverImg} className=" item-Card-Img" />
-                    <Card.Title>{item.title}</Card.Title>
+                    <Card.Title className=" item-Card-Title" >{item.title}</Card.Title>
                   </Container>
                   <Card.Body>
                     <Card.Text className="item-card-summary">
@@ -46,7 +47,7 @@ const AllItem = () => {
                     </p>
                   </Card.Body>
                 </Card>
-              </Link>
+              </Link>  
             );
           })
       )}

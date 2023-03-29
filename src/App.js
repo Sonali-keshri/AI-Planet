@@ -37,7 +37,10 @@ function App() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
-  const [coverImg, setCoverImg] = useState('');
+
+  const [coverImg, setCoverImg] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const [hackthonName, setHackthonName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -76,6 +79,7 @@ function App() {
     
   };
 
+  // console.log("CoverImage URL : ", coverImg)
   
   return (
    
@@ -83,7 +87,7 @@ function App() {
         <AppContext.Provider
           value={{ title, setTitle, summary, setSummary, description, setDescription, coverImg, setCoverImg, hackthonName, setHackthonName, startDate, setStartDate, endDate,
              setEndDate,github,setGithub,otherLink,setOtherLink,arrOfData, setArrOfData,edit, setEdit,active, setActive,favData, setFavData,searchItem,setSearchItem
-            }}
+             ,selectedFile, setSelectedFile}}
             >
           <NavBar />
           <Routes>

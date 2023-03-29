@@ -1,4 +1,9 @@
 
+*{
+  padding:0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .text-decor{
   text-decoration: none;
   color: rgb(97, 97, 97);
@@ -28,21 +33,25 @@
 
 /* AllItems Page */
 .item-Card{
-  width: 20rem;
+  width: 340px;
+  max-height: 290px;
   cursor: pointer;
   color: black;
+  padding: 12px;
+  padding-top: 24px !important;
 }
 .item-Card-Img{
   width: 100px !important;
-  height: 70px;
+  height: 100px !important;
+  object-fit: cover !important; 
 }
 .item-card-summary{
-  height: 100px;
+  height: 80px;
   overflow: hidden;
 }
-/* .item-card-time{
-  text-align: ;
-} */
+.item-Card-Title{
+  font-size: 1.5rem !important;
+}
 
 
 /* Detail Page */
@@ -59,6 +68,31 @@
 }
 .favIcon{
   cursor: pointer;
+}
+.item-detail-Card-Img{
+  width: 120px !important;
+  height: 120px !important;
+  object-fit: cover !important;
+}
+
+.modelBox .modal-content{
+  height: 196px !important;
+  border-radius: 24px;
+  padding: 10px;
+} .modal-content .modal-footer{
+  border: none !important;
+}
+.modal-footer .btn{
+  width: 25% !important;
+  border-radius: 10px !important ;
+  border: 2px;
+}
+.cancle-Btn{
+  border: 2px solid black !important;
+
+}
+.delete-Btn{
+  border: 2px solid crimson !important;
 }
 
 

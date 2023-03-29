@@ -9,9 +9,9 @@ import { AppContext } from "../App";
 import moment from "moment";
 
 const DetailsPage = ({ editdata, deleteNote }) => {
+
   const { arrOfData, setFavData, favData } = useContext(AppContext);
   const [currentData, setCurrentData] = useState(null);
-  const [deleteId, setdeleteId] = useState("");
   const [show, setShow] = useState(false);
 
   const { id } = useParams();
@@ -32,10 +32,6 @@ const DetailsPage = ({ editdata, deleteNote }) => {
   }
   const handleDelete = (deleteItemId) => {
     setShow(true)
-    setdeleteId(deleteItemId)
-    console.log(deleteItemId)
-    // deleteNote(deleteItem);
-    // Navigate("/");
   };
 
   const handleDeleteItem =(id)=>{
@@ -77,7 +73,7 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                       <div className="d-flex gap-4 align-items-center">
                         <Card.Img
                           src={currentData.coverImg}
-                          style={{ width: "150px", height: "100px" }}
+                          className="item-detail-Card-Img"
                         />
                         <Card.Title className="title fontSize">
                           {currentData.title}
@@ -131,7 +127,7 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                 <p className="text-muted">Hackthon</p>
                 <h4>{currentData.hackthonName}</h4>
                 <p className="text-muted mt-3">
-                  <MdDateRange /> {moment(currentData.startDate).format("LL")}{" "}
+                  <MdDateRange /> {moment(currentData.startDate).format("LL")}
                   <span> - </span>
                   {moment(currentData.endDate).format("LL")}
                 </p>
@@ -150,19 +146,17 @@ const DetailsPage = ({ editdata, deleteNote }) => {
               </Col>
             </Row>
           </Container>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Delete</Modal.Title>
-            </Modal.Header>
+          <Modal show={show} onHide={handleClose} className="modelBox" >
             <Modal.Body>
-              Are You sure you want to delete!..
+              <h5>Delete model</h5>
+            This action is irreversible. Are you sure you want to delete this model?
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={()=>handleDeleteItem(currentData.id)}>
-                Ok
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="dark-outline"  className="cancle-Btn" onClick={handleClose}>
                 Cancle
+              </Button>
+              <Button variant="danger" className="delete-Btn" onClick={()=>handleDeleteItem(currentData.id)}>
+                Delete
               </Button>
             </Modal.Footer>
           </Modal>

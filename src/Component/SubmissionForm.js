@@ -6,24 +6,68 @@ import { AppContext } from "../App";
 import { v4 } from "uuid";
 
 const SubmissionForm = () => {
-
-  const { title, setTitle, summary, setSummary, description, setDescription, coverImg, setCoverImg, hackthonName, setHackthonName, startDate, setStartDate, 
-    endDate, setEndDate,github,setGithub,otherLink,setOtherLink,active,setActive,edit,setEdit,arrOfData,setArrOfData} = useContext(AppContext);
+  const {
+    title,
+    setTitle,
+    summary,
+    setSummary,
+    description,
+    setDescription,
+    coverImg,
+    setCoverImg,
+    hackthonName,
+    setHackthonName,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    github,
+    setGithub,
+    otherLink,
+    setOtherLink,
+    active,
+    setActive,
+    edit,
+    setEdit,
+    arrOfData,
+    setArrOfData,
+    setSelectedFile
+  } = useContext(AppContext);
 
   const Navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title ||!summary ||!coverImg ||!description ||!hackthonName ||!startDate ||!endDate ||!github ||!otherLink
+    if (
+      !title ||
+      !summary ||
+      !coverImg ||
+      !description ||
+      !hackthonName ||
+      !startDate ||
+      !endDate ||
+      !github ||
+      !otherLink
     ) {
-      alert("Please enter a note to save, empty note can't be saved");
+      alert("Please fill the all field");
     } else if (edit) {
       const date = new Date();
       let text = date.toLocaleString();
       setArrOfData(
         arrOfData.map((item) => {
           if (item.id === active) {
-            return { ...item, timestamp: text, title, summary, description, coverImg, hackthonName, startDate, endDate, github, otherLink,
+            return {
+              ...item,
+              timestamp: text,
+              title,
+              summary,
+              description,
+              coverImg,
+              hackthonName,
+              startDate,
+              endDate,
+              github,
+              otherLink,
             };
           }
           return item;
@@ -45,7 +89,18 @@ const SubmissionForm = () => {
     } else {
       const date = new Date();
       let text = date.toLocaleString();
-      let data = { id: v4(), timestamp: text, title, summary, description, coverImg, hackthonName, startDate, endDate, github, otherLink,
+      let data = {
+        id: v4(),
+        timestamp: text,
+        title,
+        summary,
+        description,
+        coverImg,
+        hackthonName,
+        startDate,
+        endDate,
+        github,
+        otherLink,
       };
       setArrOfData([...arrOfData, data]);
       setTitle("");
@@ -59,6 +114,20 @@ const SubmissionForm = () => {
       setOtherLink("");
       Navigate("/");
     }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    previewFile(file);
+    setSelectedFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCoverImg(reader.result);
+    };
   };
 
   return (
@@ -104,12 +173,20 @@ const SubmissionForm = () => {
             <Form.Label>Cover Image</Form.Label>
             <p className="text-muted">Minimum resolution: 360px X 360px</p>
             <Form.Control
-              type="text"
+              type="file"
               name="coverImg"
-              placeholder="paste the link of image"
-              onChange={(e) => setCoverImg(e.target.value)}
-              value={coverImg}
+              accept="image/*"
+              onChange={handleFileChange}
+              
             />
+            <div>
+            {coverImg && (
+              <img
+                src={coverImg}
+                alt="Preview"
+                style={{ height: "100px" }}
+              />
+            )}</div>
           </Form.Group>
           <Form.Group className="mb-4" controlId="formGroupName">
             <Form.Label>Hackathon Name</Form.Label>
@@ -130,6 +207,7 @@ const SubmissionForm = () => {
                 onChange={(e) => setStartDate(e.target.value)}
                 value={startDate}
               />
+              {console.log("Type of startDate : ", typeof(startDate))}
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridEndDate">

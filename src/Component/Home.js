@@ -22,12 +22,12 @@ const Home = () => {
     if (newSortOrder === "newest") {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, timestamp: new Date(obj.timestamp) }}).sort((a, b) => b.timestamp - a.timestamp);
+          return { ...obj, startDate: new Date(obj.startDate) }}).sort((a, b) => b.startDate - a.startDate);
         setArrOfData(sortedDates);
     } else {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, timestamp: new Date(obj.timestamp) }}).sort((a, b) => a.timestamp - b.timestamp);
+          return { ...obj, startDate: new Date(obj.startDate) }}).sort((a, b) => a.startDate - b.startDate);
       setArrOfData(sortedDates);
     }
   };
@@ -73,7 +73,6 @@ const Home = () => {
               <img
                 style={{ maxWidth: "199px", maxHeight: "300px" }}
                 src={Hand}
-                // height="200"
                 className="img-fluid"
                 alt="React Bootstrap logo"
               />
