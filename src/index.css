@@ -4,6 +4,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 .text-decor{
   text-decoration: none;
   color: rgb(97, 97, 97);
@@ -26,10 +27,24 @@
   border: none;
   outline: none;
   width: 145px;
+  background-color: transparent;
 }
 .activeMenu{
   border-bottom: 3px solid green;
 }
+
+.select-option .form-select {
+  background-image: url("./assets/downArrow.svg") !important;
+  background-size: 10px !important;
+  background-position: right 1rem center !important;
+  background-color: transparent;
+
+}
+
+
+
+
+
 
 /* AllItems Page */
 .item-Card{
@@ -60,11 +75,16 @@
   color: white;
   border: none !important;
 }
+.top-page-btn{
+  width: 100px !important;
+  border-radius: 10px !important;
+}
 .links-Btn{
-  border-color: grey;
-  color: grey;
+  border-color: #666666;
+  color: #666666;
   width: 200px;
   font-size: 1rem;
+  border-radius: 12px !important;
 }
 .favIcon{
   cursor: pointer;
@@ -75,6 +95,9 @@
   object-fit: cover !important;
 }
 
+.modelBox{
+  top: 30% !important;
+}
 .modelBox .modal-content{
   height: 196px !important;
   border-radius: 24px;
@@ -88,7 +111,7 @@
   border: 2px;
 }
 .cancle-Btn{
-  border: 2px solid black !important;
+  border: 1px solid black !important;
 
 }
 .delete-Btn{
@@ -96,4 +119,57 @@
 }
 
 
+/* Submission Form */
 
+.img-upload-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px dashed #CCCCCC;
+  height: 100px;
+  max-width: 600px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #F5F5F5;
+}
+
+.formBox .form-label{
+  font-weight: 400px !important;
+  font-size: 17px !important;
+}
+
+.upload-control-img img{
+  width: 70px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.upload-control-img p{
+  font-size: 16px;
+}
+
+.upload-control-img .img-name{
+  flex:4;
+}
+.upload-control-img .img-reupload-icon{
+  color: #858585;
+}
+
+@media only screen and (min-width: 1000px)  {
+    .item-Card{
+      width: 420px !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+  .item-Card{
+    width: 340px !important;
+  }
+}
+
+@media only screen and (min-width: 1400px)  {
+  .item-Card{
+    width: 400px !important;
+  }
+}

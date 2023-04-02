@@ -39,7 +39,8 @@ function App() {
   const [description, setDescription] = useState("");
 
   const [coverImg, setCoverImg] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState("");
+ 
 
   const [hackthonName, setHackthonName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -62,6 +63,7 @@ function App() {
   }
 
   
+
   const editdata = (id) => {
     const matchedItem = arrOfData.find((item) => item.id === id);
     setEdit(true);
@@ -79,7 +81,7 @@ function App() {
     
   };
 
-  // console.log("CoverImage URL : ", coverImg)
+ 
   
   return (
    

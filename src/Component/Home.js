@@ -22,18 +22,22 @@ const Home = () => {
     if (newSortOrder === "newest") {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, startDate: new Date(obj.startDate) }}).sort((a, b) => b.startDate - a.startDate);
-        setArrOfData(sortedDates);
+          return { ...obj, startDate: new Date(obj.startDate) };
+        })
+        .sort((a, b) => b.startDate - a.startDate);
+      setArrOfData(sortedDates);
     } else {
       const sortedDates = arrOfData
         .map((obj) => {
-          return { ...obj, startDate: new Date(obj.startDate) }}).sort((a, b) => a.startDate - b.startDate);
+          return { ...obj, startDate: new Date(obj.startDate) };
+        })
+        .sort((a, b) => a.startDate - b.startDate);
       setArrOfData(sortedDates);
     }
   };
 
   return (
-    <>
+    <Container fluid  style={{backgroundColor:"#F5F5F5"}} className="m-0 p-0">
       <Container
         fluid
         style={{ backgroundColor: "#003145" }}
@@ -106,26 +110,25 @@ const Home = () => {
               <input
                 placeholder="Search"
                 onChange={(e) => setSearchItem(e.target.value)}
-                className="search-inp"
+                className="search-inp "
               />
             </div>
 
-            <div className="col-3 col-md-4 p-0 ">
+            <div className="col-3 col-md-4 p-0 select-option ">
               <Form.Select
                 aria-label="Default select example"
                 value={sortOrder}
                 onChange={handleSortOrderChange}
-                className="border border-dark corner-radius"
-              >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
+                className="border border-dark corner-radius formSelect text-muted " >
+                <option value="newest" className="opt ">Newest</option>
+                <option value="oldest" className="opt ">Oldest</option>
               </Form.Select>
             </div>
           </div>
         </div>
       </Container>
       <Outlet />
-    </>
+    </Container>
   );
 };
 

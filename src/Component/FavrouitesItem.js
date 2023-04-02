@@ -12,7 +12,7 @@ const FavrouitesItem = () => {
   const result = arrOfData.filter(({id}) => favData.includes(id));
 
   return (
-    <Container className="mt-4 d-flex flex-wrap gap-md-2 gap-0 justify-content-center justify-content-lg-start gap-lg-5">
+    <Container className="mt-5 d-flex flex-wrap gap-md-2 gap-0 justify-content-center  justify-content-lg-start gap-lg-5">
       { result.length <= 0 ? (
         <div className="mx-auto my-5">
            <h3 className="text-center">No Data Avilable! Please add the data by clicking on Upload Submission button</h3>
@@ -25,7 +25,7 @@ const FavrouitesItem = () => {
         return(
           <Link to={`/DetailsPage/${item.id}`} key={item.id} className="text-decor">
             
-            <Card className="pt-4 mb-4 item-Card shadow"  >
+            <Card className="pt-4 mb-4 item-Card shadow rounded-4 border-0 "  >
             <Container className="d-flex justify-content-start align-items-center gap-3">
               <Card.Img src={item.coverImg} className="item-Card-Img" />
               <Card.Title className="item-Card-Title">{item.title}</Card.Title>

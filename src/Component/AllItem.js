@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row , Col} from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
@@ -10,8 +10,10 @@ const AllItem = () => {
   const { arrOfData, searchItem } = useContext(AppContext);
 
   return (
+    <Container fluid style={{backgroundColor:"#F5F5F5"}}>
     <Container
-      className="mt-4 d-flex flex-wrap gap-md-2 gap-0 justify-content-center justify-content-lg-start gap-lg-5"
+      className="mt-5 d-flex flex-wrap gap-md-2 gap-0 justify-content-center justify-content-lg-start gap-lg-5"
+      
     >
       {arrOfData.length <= 0 ? (
         <div className="mx-auto my-5">
@@ -31,7 +33,7 @@ const AllItem = () => {
                 key={item.id}
                 className="text-decor"
               >
-                <Card className="mb-4 item-Card shadow " >
+                <Card className="mb-4 item-Card shadow rounded-4 border-0 " >
                   <Container className="d-flex justify-content-start align-items-center gap-3">
                     <Card.Img src={item.coverImg} className=" item-Card-Img" />
                     <Card.Title className=" item-Card-Title" >{item.title}</Card.Title>
@@ -51,6 +53,7 @@ const AllItem = () => {
             );
           })
       )}
+    </Container>
     </Container>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, Button, Row, Col,Modal } from "react-bootstrap";
 import { AiOutlineStar, AiFillGithub, AiFillStar } from "react-icons/ai";
-import { MdDateRange, MdDelete, MdModeEditOutline } from "react-icons/md";
+import { MdDelete, MdModeEditOutline } from "react-icons/md";
+import {BsCalendar} from 'react-icons/bs'
 import { GoLinkExternal } from "react-icons/go";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -82,25 +83,25 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                       <Card.Text className="mt-3 mb-3">
                         {currentData.summary}
                       </Card.Text>
-                      <Card.Body className="d-flex gap-3 ">
-                        <div onClick={handleFav} className="favIcon">
+                      <Card.Body className="d-flex gap-3 align-items-center" >
+                        <div onClick={handleFav} className="favIcon" style={{fontSize:"20px"}}>
                           {isFavourited ? <AiFillStar /> : <AiOutlineStar />}
                         </div>
-                        |
-                        <div>
-                          <MdDateRange />
-                          <small className="px-1">
-                            {moment(currentData.startDate).format("LL")}
+                        <hr style={{width:"1px" ,height:"30px", backgroundColor:"white"}}></hr>
+                        <div className="corner-radius d-flex align-items-center" style={{backgroundColor:"#255973",padding:"6px 12px"}}> 
+                          <BsCalendar/>
+                          <small className="px-2">
+                            {moment(currentData.startDate).format("Do MMM  ")}
                           </small>
                         </div>
                       </Card.Body>
                     </Card.Body>
                   </Card>
                 </div>
-                <div className="col-md-4 d-flex flex-md-column justify-content-center align-items-md-center order-2 gap-2 gap-md-0 ">
+                <div className="col-md-4 d-flex flex-md-column justify-content-center align-items-md-end order-2 gap-2 gap-md-0 ">
                   <Button
                     variant="outline-light"
-                    className="w-50 "
+                    className="top-page-btn"
                     onClick={() => OnEditClick(currentData.id)}
                   >
                     <MdModeEditOutline /> Edit
@@ -108,7 +109,7 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                   <br />
                   <Button
                     variant="outline-light"
-                    className="w-50 "
+                    className="top-page-btn"
                     onClick={() => handleDelete(currentData.id)}
                   >
                     <MdDelete /> Delete
@@ -118,19 +119,22 @@ const DetailsPage = ({ editdata, deleteNote }) => {
             </Container>
           </Container>
           <Container>
-            <Row className="mt-3 ">
-              <Col md={8} className=" py-3">
+            <Row className="mt-3 d-flex justify-content-between gap-5 mx-1 mx-md-0">
+              <Col md={7} className=" py-3 ">
                 <h3 className="mb-4">Description</h3>
                 <p>{currentData.description}</p>
               </Col>
               <Col md={4} className="py-3">
                 <p className="text-muted">Hackthon</p>
                 <h4>{currentData.hackthonName}</h4>
-                <p className="text-muted mt-3">
-                  <MdDateRange /> {moment(currentData.startDate).format("LL")}
+                <div className="text-muted mt-3 d-flex align-items-center">
+                  <BsCalendar/> 
+                  <span className="px-2">
+                  {moment(currentData.startDate).format("Do MMM YYYY")}
                   <span> - </span>
-                  {moment(currentData.endDate).format("LL")}
-                </p>
+                  {moment(currentData.endDate).format("Do MMM YYYY")}
+                  </span>
+                </div>
                 <div className="d-grid gap-3 mt-5">
                   <Link to={currentData.github}>
                     <Button variant="outline-dark" className="links-Btn">
