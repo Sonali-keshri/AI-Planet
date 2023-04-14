@@ -56,12 +56,18 @@ const SubmissionForm = () => {
     } else if (edit) {
       const date = new Date();
       let text = date.toLocaleString();
-      setArrOfData(
-        arrOfData.map((item) => {
-          if (item.id === active) {
-            return {
-              ...item,
-              timestamp: text,
+      if(startDate && endDate){
+        if(new Date(startDate) > new Date(endDate)){
+          alert("Your starting date is greater that end date, please select the date which is smaller to end date")
+          return;
+        }
+        else{ 
+          setArrOfData(
+            arrOfData.map((item) => {
+              if (item.id === active) {
+                return {
+                  ...item,
+                  timestamp: text,
               title,
               summary,
               description,
@@ -76,7 +82,9 @@ const SubmissionForm = () => {
           }
           return item;
         })
-      );
+          );
+        }
+      }
       setTitle("");
       setSummary("");
       setDescription("");
@@ -91,9 +99,16 @@ const SubmissionForm = () => {
       setActive(null);
       setEdit(false);
       Navigate("/");
-    } else {
+    } 
+    else {
       const date = new Date();
       let text = date.toLocaleString();
+      if(startDate && endDate){
+        if(new Date(startDate) > new Date(endDate)){
+          alert("Your starting date is greater that end date, please select the date which is smaller to end date")
+          return;
+        }
+        else{
       let data = {
         id: v4(),
         timestamp: text,
@@ -109,6 +124,7 @@ const SubmissionForm = () => {
         selectedFile,
       };
       setArrOfData([...arrOfData, data]);
+    }}
       setTitle("");
       setSummary("");
       setDescription("");
@@ -139,7 +155,7 @@ const SubmissionForm = () => {
     };
   };
 
-  console.log("seleted File: " ,selectedFile)
+  // console.log("seleted File: " ,selectedFile)
 
   return (
     <Container fluid style={{ backgroundColor: "#F5F5F5" }} className="m-0">
@@ -258,18 +274,20 @@ const SubmissionForm = () => {
 
             <Form.Group className="mb-4" controlId="formGroupGithub">
               <Form.Label>GitHub Repository</Form.Label>
+             
               <Form.Control
-                type="text"
+                type="url"
                 placeholder="Enter the name of the hackathon"
                 name="github"
                 onChange={(e) => setGithub(e.target.value)}
                 value={github}
               />
+              
             </Form.Group>
             <Form.Group className="mb-4" controlId="formGroupOtherLink">
               <Form.Label>Others Links</Form.Label>
               <Form.Control
-                type="text"
+                type="url"
                 placeholder="Enter the name of the hackathon"
                 name="otherLink"
                 onChange={(e) => setOtherLink(e.target.value)}

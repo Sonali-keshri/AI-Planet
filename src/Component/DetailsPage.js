@@ -136,12 +136,12 @@ const DetailsPage = ({ editdata, deleteNote }) => {
                   </span>
                 </div>
                 <div className="d-grid gap-3 mt-5">
-                  <Link to={currentData.github}>
+                  <Link to={currentData.github} target="_blank">
                     <Button variant="outline-dark" className="links-Btn">
                       <AiFillGithub className="fontSize" /> GitHub Repository
                     </Button>
                   </Link>
-                  <Link to={currentData.otherLink}>
+                  <Link to={currentData.otherLink} target="_blank">
                     <Button variant="outline-dark" className="links-Btn">
                       <GoLinkExternal className="fontSize" /> Other Link
                     </Button>

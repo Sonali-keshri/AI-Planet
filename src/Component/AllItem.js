@@ -27,7 +27,6 @@ const AllItem = () => {
           .map((item) => {
             return (
               
-                
                 <Link
                 to={`/DetailsPage/${item.id}`}
                 key={item.id}
